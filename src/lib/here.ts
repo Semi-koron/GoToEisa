@@ -53,8 +53,24 @@ export const clickAndPin = ({ map, setX, setY }: pinProps) => {
       map.removeObjects(map.getObjects());
     }
     var parisMarker = new H.map.Marker(coord);
+    console.log({
+      x: coord.lat,
+      y: coord.lng,
+    });
     map.addObject(parisMarker);
     setX(coord.lat);
     setY(coord.lng);
   });
+};
+
+type pinPos = {
+  x: number;
+  y: number;
+};
+
+export const pinPush = (map: any, pinPos: pinPos[]) => {
+  for (let i = 0; i < pinPos.length; i++) {
+    var parisMarker = new H.map.Marker({ lat: pinPos[i].x, lng: pinPos[i].y });
+    map.addObject(parisMarker);
+  }
 };

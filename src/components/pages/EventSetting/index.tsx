@@ -1,5 +1,6 @@
 import style from "./index.module.css";
 import React, { use, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import H from "@here/maps-api-for-javascript";
 import "@here/maps-api-for-javascript/bin/mapsjs-ui.css";
 import { clickAndPin, showMap } from "@/lib/here";
@@ -10,6 +11,7 @@ import { TextInput } from "@/components/ui/TextInput";
 import { Button } from "@/components/ui/Button";
 
 export const EventSetting: React.FC = () => {
+  const router = useRouter();
   const [map, setMap] = useState<H.Map | null>(null);
   const [posX, setPosX] = useState<number | null>(null);
   const [posY, setPosY] = useState<number | null>(null);
@@ -31,6 +33,23 @@ export const EventSetting: React.FC = () => {
     }
   }, [map]);
 
+  const postEvent = async () => {
+    if (startTime && endTime && eventName && eventDescription && posX && posY) {
+      const data = {
+        startTime: startTime,
+        endTime: endTime,
+        eventName: eventName,
+        eventDescription: eventDescription,
+        posX: posX,
+        posY: posY,
+      };
+      alert("イベントを作成しました");
+      router.push("/home");
+    } else {
+      alert("イベントの作成に失敗しました");
+    }
+  };
+
   return (
     <>
       <div id="mapContainer"></div>
@@ -47,7 +66,9 @@ export const EventSetting: React.FC = () => {
                 イベントの説明
               </TextInput>
             </div>
-            <Button buttonShape="ends-round">イベントを作成</Button>
+            <Button buttonShape="ends-round" onClick={postEvent}>
+              イベントを作成
+            </Button>
           </div>
         </h1>
       ) : null}
