@@ -1,0 +1,43 @@
+.button-style {
+  background: var(--brack-lighten);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  color: var(--white);
+  cursor: pointer;
+  padding: 16px 32px;
+  width: 100%;
+  font-size: 24px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 1s ease-out;
+
+  &[data-shape="square"] {
+    border-radius: 8px;
+  }
+
+  &[data-shape="ends-round"] {
+    border-radius: 9999px;
+  }
+
+  &:disabled {
+    background-color: var(--brack-lighten);
+    border: 3px solid var(--brack-lighten);
+    color: var(--white);
+  }
+
+  &:hover {
+    background: var(--liner-gradient);
+  }
+
+  &:focus {
+    background: var(--liner-gradient);
+    outline: none;
+  }
+
+  @media screen and (max-width: 768px) {
+    font-size: 18px;
+    padding: 16px 20px;
+  }
+}
