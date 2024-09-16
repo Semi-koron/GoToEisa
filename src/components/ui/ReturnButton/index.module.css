@@ -9,6 +9,7 @@
   &:hover {
     color: var(--light-brown);
   }
+  z-index: 3;
 }
 
 .back-icon {

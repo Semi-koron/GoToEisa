@@ -26,24 +26,35 @@ export const showMap = (lat: any, lon: any) => {
       zoom: 8,
       center: { lat: lat, lng: lon },
     });
+    var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+    var ui = H.ui.UI.createDefault(map, omvlayer);
+
     return map;
   } else {
     console.error("mapContainer element not found");
   }
 };
 
-export const clickAndPin = (map: any) => {
-  // Attach an event listener to map display
-  // obtain the coordinates and display in an alert box.
-  map.addEventListener("tap", function (evt: any) {
+type pinProps = {
+  map: any;
+  setX: (x: number) => void;
+  setY: (y: number) => void;
+};
+export const clickAndPin = ({ map, setX, setY }: pinProps) => {
+  console.log("clickAndPin");
+  let coord: any;
+  map?.addEventListener("tap", function (evt: any) {
     console.log("tap");
-    var coord = map.screenToGeo(
+    coord = map.screenToGeo(
       evt.currentPointer.viewportX,
       evt.currentPointer.viewportY
     );
-    if (coord) {
-      var marker = new H.map.Marker(coord);
-      map.addObject;
+    if (map.getObjects().length > 0) {
+      map.removeObjects(map.getObjects());
     }
+    var parisMarker = new H.map.Marker(coord);
+    map.addObject(parisMarker);
+    setX(coord.lat);
+    setY(coord.lng);
   });
 };
